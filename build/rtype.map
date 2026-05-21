@@ -1,0 +1,196 @@
+(C)Copyright TOSHIBA CORPORATION 1993-2009  All rights reserved
+
+Thu May 21 12:53:58 2026
+
+Toshiba Unified Linker (32) V2.0p     [Page     1]     Z:\home\gandalf\projects\ngpc
+Runtime option : Z:\home\gandalf\projects\ngpc\devkit\ngpcbins\ngpcbins\T900\BIN\tulink.exe -la -o Z:\home\gandalf\projects\ngpc\devkit\rtype-neo\build\rtype.abs Z:\home\gandalf\projects\ngpc\devkit\rtype-neo\lcf\rtype.lcf Z:\home\gandalf\projects\ngpc\devkit\rtype-neo\system.lib Z:\home\gandalf\projects\ngpc\devkit\rtype-neo\..\ngpcbins\ngpcbins\T900\LIB\c900ml.lib Z:\home\gandalf\projects\ngpc\devkit\rtype-neo\build\src_main.rel Z:\home\gandalf\projects\ngpc\devkit\rtype-neo\build\common_library.rel 
+
+  Command file : Z:\home\gandalf\projects\ngpc\devkit\rtype-neo\lcf\rtype.lcf
+    memory
+    {
+    	io(RW)	: org=0x000000, len=0x000100
+    	ram(RW)	: org=0x004000, len=0x002C00
+    	rom(RX)	: org=0x200000, len=0x200000
+    }
+    
+    sections
+    {
+    	far_area	org=0x004000								: {*(f_area)}
+    	far_startup	org=0x200000								: {*(f_header)}
+    	far_const	org=org(far_startup)+sizeof(far_startup)		: {*(f_const)}
+    	far_code	org=org(far_const)+sizeof(far_const)	: {*(f_code)}
+    	far_data	org=org(far_code)+sizeof(far_code)
+    				addr=org(far_area)+sizeof(far_area)			: {*(f_data)}
+    	__DataRAM = addr(far_data);
+    }
+
+  Input files (modules)
+    Z:\home\gandalf\projects\ngpc\devkit\rtype-neo\build\src_main.rel (main_c)
+    Z:\home\gandalf\projects\ngpc\devkit\rtype-neo\build\common_library.rel (library_c)
+    Z:\home\gandalf\projects\ngpc\devkit\rtype-neo\system.lib (int_lv wave )
+
+  Link map
+    Memory     Out-sec    Attri   Base       Length     In-sec(In-file)        Information
+    ---------- ---------- ------- ---------- ---------- ---------------------- ---------------
+    io                                     0        100                        *** Gap ***
+    ram        far_area   DATA          4000         99 f_area  (Z:\home\gandalf\projects\ngpc\devkit\rtype-neo\build\src_main.rel)
+                                                                               NORMAL
+    ram        far_area   DATA          4099          1                        *** Gap ***
+    ram        far_area   DATA          409A          9 f_area  (Z:\home\gandalf\projects\ngpc\devkit\rtype-neo\build\common_library.rel)
+                                                                               NORMAL
+    ram                                 40A3       2B5D                        *** Gap ***
+    rom        far_const  ROMDATA     200000        15A f_const (Z:\home\gandalf\projects\ngpc\devkit\rtype-neo\build\src_main.rel)
+                                                                               NORMAL
+    rom        far_const  ROMDATA     20015A       15AC f_const (Z:\home\gandalf\projects\ngpc\devkit\rtype-neo\build\common_library.rel)
+                                                                               NORMAL
+    rom        far_code   CODE        201706       1730 f_code  (Z:\home\gandalf\projects\ngpc\devkit\rtype-neo\build\src_main.rel)
+                                                                               NORMAL
+    rom        far_code   CODE        202E36       10D5 f_code  (Z:\home\gandalf\projects\ngpc\devkit\rtype-neo\build\common_library.rel)
+                                                                               NORMAL
+    rom                               203F0B          1                        *** Gap ***
+    rom        far_data   DATA        203F0C          A f_data  (Z:\home\gandalf\projects\ngpc\devkit\rtype-neo\build\src_main.rel)
+                                                                               NORMAL
+    rom        SYSLIB     CODE        203F16        120 SYSLIB  (Z:\home\gandalf\projects\ngpc\devkit\rtype-neo\system.lib)
+                                                                               NORMAL
+    rom        SYSLIB     CODE        204036         9C SYSLIB  (Z:\home\gandalf\projects\ngpc\devkit\rtype-neo\system.lib)
+                                                                               NORMAL
+    rom                               2040D2     1FBF2E                        *** Gap ***
+
+  Symbol table for Z:\home\gandalf\projects\ngpc\devkit\rtype-neo\build\rtype.abs
+      Symbol       Address  In-sec   Cross-reference
+      ------------ -------- -------- --------------------------------------
+    Input module : main_c
+      _CartID        200020 f_const  
+      _CartTitle     200024 f_const  
+      _Licensed      200000 f_const  
+      _Reserved      200030 f_const  
+      _System        200022 f_const  
+      _main          202CF6 f_code   
+      _ptr           20001C f_const  
+    Input module : library_c
+      _BitmapMask    2016A6 f_const  
+      _BitmapNewMask
+                     2016B6 f_const  
+      _BlockCopy     2034C5 f_code   
+      _ClearBitmap_2
+                     203B3A f_code   
+      _ClearScreen   202F7B f_code   main_c   
+      _CopyBitmap    2038D8 f_code   
+      _Cos           203628 f_code   
+      _CpuSpeed      2030EB f_code   
+      _CreateBitmap
+                     203761 f_code   
+      _CreateBitmap_2
+                     203B5D f_code   
+      _DayNames      201660 f_const  
+      _DrawBitmap    20394D f_code   
+      _DrawLine      2039C4 f_code   
+      _DrawLineHorizontal
+                     203B01 f_code   
+      _DrawLineVertical
+                     203AC8 f_code   
+      _DummyFunction
+                     202E36 f_code   
+      _FillScreen    203D8D f_code   
+      _Flash         203E7D f_code   
+      _GetRandom     2035BD f_code   
+      _GetSavedData
+                     203EAA f_code   
+      _GetTile       203077 f_code   
+      _GetTime       20363B f_code   
+      _InitNGPC      202E73 f_code   main_c   
+      _InitialiseQRandom
+                     2035FA f_code   
+      _InstallSoundDriver
+                     2034E5 f_code   
+      _InstallSounds
+                     203509 f_code   
+      _InstallTileSet
+                     2033FD f_code   
+      _InstallTileSetAt
+                     2033CA f_code   main_c   
+      _Multiply32bit
+                     2035A1 f_code   
+      _NeoTracker_Driver
+                     2006AA f_const  
+      _NeoTracker_InstallDriver
+                     2036B0 f_code   
+      _NeoTracker_PlayMusic
+                     20373A f_code   
+      _NeoTracker_PlaySFX
+                     20374A f_code   
+      _NeoTracker_SendGroup
+                     2036E6 f_code   
+      _NeoTracker_StopAll
+                     20375A f_code   
+      _OffsetValues
+                     2016F6 f_const  
+      _PlaySound     20357E f_code   
+      _PrintDecimal
+                     203179 f_code   
+      _PrintHex      203257 f_code   
+      _PrintHex2     2032DA f_code   
+      _PrintNumber   2031D0 f_code   
+      _PrintString   203371 f_code   main_c   
+      _PutBitmapTile
+                     203898 f_code   
+      _PutTile       20302C f_code   main_c   
+      _QRandom       203601 f_code   
+      _QuickRandomNumbers
+                     201160 f_const  
+      _QuickSetPixel
+                     203839 f_code   
+      _RAND_RandomData
+                       409E f_area   
+      _RandomNumberCounter
+                       40A2 f_area   
+      _ResumeOff     202F5C f_code   
+      _SFXDriver_Z80
+                     20015A f_const  
+      _SFXInstalled
+                       409C f_area   
+      _SeedRandom    20358C f_code   
+      _SetAlarm      20367D f_code   
+      _SetBackgroundColour
+                     20340D f_code   main_c   
+      _SetColors     202FAF f_code   
+      _SetMoreColors
+                     203CF7 f_code   
+      _SetPalette    203010 f_code   main_c   
+      _SetPixel      2037BC f_code   
+      _SetPixel_2    203C05 f_code   
+      _SetScreen     203E2D f_code   
+      _SetSprite     203422 f_code   
+      _SetSpritePosition
+                     2034A6 f_code   
+      _SetWake       203657 f_code   
+      _SetWindowColor
+                     20341A f_code   
+      _ShiftScroll   203E4A f_code   
+      _Sin           203618 f_code   
+      _SineTable256
+                     201560 f_const  
+      _Sleep         20314E f_code   
+      _SpriteControl
+                     203472 f_code   
+      _StopAllSound
+                     203586 f_code   
+      _SwapPlanes    203E73 f_code   
+      _SysPlayWave   2036A3 f_code   
+      _SysSetSystemFont
+                     202F62 f_code   main_c   
+      _SysShutdown   202F46 f_code   
+      _TileScreen    203DCC f_code   
+      _UnsetSprite   203494 f_code   
+      _VBCounter       409A f_area   main_c   
+      _VBInterrupt   202E37 f_code   
+      _WaitVblank    20313C f_code   
+      _WaitVsync     203125 f_code   main_c   
+      _WaitVsyncHARD
+                     203108 f_code   
+    Input module : wave
+      WAVE_OUT       203F16 SYSLIB   library_c 
+    Input module : int_lv
+      INT_LV_SET     204036 SYSLIB   wave     
+
+Linker end,No error

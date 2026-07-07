@@ -7,7 +7,7 @@
 TARGET  = rtype
 ROM     = bin/$(TARGET).ngp
 LCF     = lcf/rtype.lcf
-SYSLIB  = system.lib
+SYSLIB  = lib/system.lib
 
 # Sources: common/ + src/
 COMMON_SRCS = $(wildcard common/*.c)
